@@ -23,7 +23,7 @@ sequence/             시퀀스 다이어그램 (seq-번호.md, Mermaid)
 classes/              클래스 파일 (영어 이름, 클래스 하나당 파일 하나)
 usecase/              유스케이스 다이어그램 (전체 시스템 하나)
 docs/                 참고 자료 (팀 PPT PDF, 강의자료, Claude Docs 초안)
-.github/              PR 체크리스트
+CHECKLIST.md          push 전 체크리스트
 ```
 
 ---
@@ -47,13 +47,13 @@ cd sw-engineering-16
 
 ### 2. 기능 하나 작성하는 순서
 
-요구사항 → 시퀀스(Mermaid) → 클래스 파일 → GLOSSARY → 유스케이스 → PR (1명 승인) → 병합
+요구사항 → 시퀀스(Mermaid) → 클래스 파일 → GLOSSARY → 유스케이스 → 체크리스트 확인 → main에 push
 
-1. **브랜치 만들기**
+브랜치와 PR은 쓰지 않는다. 모두 main에서 작업하고 승인 없이 바로 push한다.
+
+1. **최신 내용 받기**
    ```bash
-   git checkout main
    git pull
-   git checkout -b req-14-hojae        # req-기능번호-이름
    ```
 2. **템플릿 복사**
    ```bash
@@ -65,21 +65,23 @@ cd sw-engineering-16
 5. **클래스 파일 수정** — 메시지를 받는 클래스 파일에 연산과 사용처를 추가. **새 연산을 만들기 전에 그 클래스 파일에 쓸 수 있는 연산이 있는지 먼저 확인**한다 (CONVENTIONS 6.4).
 6. **GLOSSARY 등록** — 새 용어·객체·enum이 생겼으면 `추가` 상태로 등록.
 7. **유스케이스·README 갱신** — `usecase/usecase.md`와 아래 담당 표의 상태를 바꾼다.
-8. **커밋·푸시**
+8. **체크리스트 확인** — [CHECKLIST.md](CHECKLIST.md)의 항목을 확인한다.
+9. **커밋·push**
    ```bash
    git add .
    git commit -m "[req-14] 음주량 기반 술 추가 요구사항·시퀀스 작성"
-   git push -u origin req-14-hojae
+   git pull
+   git push
    ```
-9. **PR 올리기** — GitHub에서 Pull Request 생성 → 체크리스트 확인 → 팀원 1명 승인 → 병합.
+   push 직전의 `git pull`은 그사이 다른 사람이 올린 내용을 합치기 위한 것이다. 같은 파일의 같은 줄을 고쳐 충돌이 나면, 충돌 난 파일을 열어 정리한 뒤 다시 커밋하고 push한다.
 
-> 공통 객체(귀가시간계산, 테이블출석현황 등)의 연산을 바꾸면 그 연산을 쓰는 기능 담당자 모두를 리뷰어로 지정한다.
+> 공통 객체(귀가시간계산, 테이블출석현황 등)의 연산을 바꾸면 그 연산을 쓰는 기능 담당자 모두에게 알린다.
 
 ### 3. 다이어그램 확인하기
 
 - GitHub에서 `sequence/seq-번호.md`를 열면 Mermaid가 바로 그림으로 보인다.
 - 로컬에서는 VS Code + "Markdown Preview Mermaid Support" 확장, 또는 [mermaid.live](https://mermaid.live)에 코드를 붙여 넣어 확인한다.
-- 그림이 안 나오면 문법 오류다. PR 전에 꼭 확인한다.
+- 그림이 안 나오면 문법 오류다. push 전에 꼭 확인한다.
 
 ### 4. Claude Code로 작업하기
 
@@ -115,7 +117,7 @@ docs/User_Requirement.pdf의 ○번 '기능명'을 저장소 규칙대로 작성
 2. 시퀀스 메시지를 받는 클래스 파일에 연산과 사용처 추가. 새 연산을 만들기 전에 기존 연산을 재사용할 수 있는지 먼저 확인
 3. usecase/usecase.md와 README.md 담당 표 갱신
 4. GLOSSARY에 없는 용어·객체·enum이 필요하면 만들기 전에 나한테 먼저 물어봐
-5. 끝나면 .github/pull_request_template.md 체크리스트 중 통과 못 한 항목과, 원문에서 애매해서 판단이 필요한 부분을 알려줘
+5. 끝나면 CHECKLIST.md 체크리스트 중 통과 못 한 항목과, 원문에서 애매해서 판단이 필요한 부분을 알려줘
 ```
 
 #### ③ 규칙 바꾸기
@@ -126,10 +128,10 @@ CONVENTIONS.md의 ○○ 규칙을 △△로 바꾸고 싶어. 이유는 □□�
 내가 확인하면 CONVENTIONS.md, 영향받는 파일을 함께 고치고 FEEDBACK.md에도 기록해줘.
 ```
 
-#### ④ 리뷰 받기 전 점검
+#### ④ push 전 점검
 
 ```
-이 브랜치에서 바꾼 파일을 CONVENTIONS.md와 GLOSSARY.md 기준으로 점검해줘.
+아직 push하지 않은 변경 파일을 CONVENTIONS.md와 GLOSSARY.md 기준으로 점검해줘.
 쓰지 않는 표기, 공백 있는 객체 이름, else 없는 조건, 다른 기능 전달 표현,
 사용처가 틀린 연산, 다른 클래스와 겹치는 메서드 이름, Mermaid 문법 오류를 찾아서 목록으로 알려줘. 고치지는 말고.
 ```
@@ -139,10 +141,10 @@ CONVENTIONS.md의 ○○ 규칙을 △△로 바꾸고 싶어. 이유는 □□�
 규칙은 작업하면서 바꿀 수 있다. 다만 혼자 바꾸지 않는다.
 
 1. 바꿀 내용과 이유를 정리한다 (위 프롬프트 ③ 사용 가능).
-2. CONVENTIONS.md 또는 GLOSSARY.md를 고치는 PR을 올린다.
-3. **팀원 전원 승인** 후 병합한다.
+2. CONVENTIONS.md 또는 GLOSSARY.md를 고쳐 push한다.
+3. **팀원 전원에게** 바꾼 내용과 이유를 알린다.
 4. 교수님·팀 피드백이 근거면 [FEEDBACK.md](FEEDBACK.md)에 한 줄 추가한다.
-5. 이미 작성된 파일 중 영향받는 것도 같은 PR에서 고친다.
+5. 이미 작성된 파일 중 영향받는 것도 같은 커밋에서 고친다.
 
 ### 6. 자주 하는 실수
 
