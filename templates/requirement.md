@@ -52,4 +52,5 @@
 - [ ] Pre/Post-condition이 DB 상태로 쓰였다
 - [ ] Side effects가 시스템 영향이다
 - [ ] 계산식을 한글로 풀어 썼다
-- [ ] 새 용어에 [추가]를 붙이고 GLOSSARY에 등록했다
+- [ ] 새 용어를 GLOSSARY에 등록했다
+- [ ] PPT와 달라진 내용을 'PPT에 추가·수정할 항목' 표에 적었다
